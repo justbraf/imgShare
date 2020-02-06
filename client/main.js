@@ -12,6 +12,8 @@ import '../lib/collection.js';
 // Template.hello.onCreated(function helloOnCreated() {
 //   // counter starts at 0
 //   this.counter = new ReactiveVar(0);
+// increment the counter when button is clicked
+    // instance.counter.set(instance.counter.get() + 1);
 // });
 
 Template.myGallery.helpers({
@@ -20,9 +22,14 @@ Template.myGallery.helpers({
   },
 });
 
-// Template.hello.events({
-//   'click button'(event, instance) {
-//     // increment the counter when button is clicked
-//     instance.counter.set(instance.counter.get() + 1);
-//   },
-// });
+Template.myGallery.events({
+  'click .js-delete'(event, instance) {
+  	// console.log("deleting...");
+  	var myId = this._id;
+  	$("#"+this._id).fadeOut('slow',function(){
+  		imagesdb.remove({_id:myId});
+  		console.log(myId);
+  	});
+
+  },
+});
