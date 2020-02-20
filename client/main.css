@@ -11,8 +11,18 @@ body {
 	height: 250px;
 	overflow: hidden;
 }
-
-.icolor{
-	color: red;
+.dcolor, .ecolor{
 	font-size: 2em;
+	cursor: pointer;
+}
+.dcolor{
+	color: red;
+}
+.ecolor{
+	color: green;
+}
+.placeHolder{
+	margin-bottom: 10px;
+	width: 350px;
+	height: 250px;
 }
