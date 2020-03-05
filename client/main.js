@@ -26,10 +26,8 @@ Template.myGallery.events({
 	'click .js-delete'(event, instance) {
 		// console.log("deleting...");
 		var myId = this._id;
-		$("#"+this._id).fadeOut('slow',function(){
-			imagesdb.remove({_id:myId});
-			console.log(myId);
-		});
+		$("#deleteId").val(myId);
+		$("#confirmModal").modal("show");
 	},
 	'click .js-edit'(event, instance){
 		$("#editImageModal").modal("show");
@@ -43,6 +41,13 @@ Template.myGallery.events({
 		$("#editPath").val(ePath);
 		$("#editDesc").val(eDesc);
 		$(".editHolder").attr("src", ePath);
+	},
+	'click .js-confirm'(event, instance){
+		var myId = $("#deleteId").val();
+		$("#"+myId).fadeOut('slow',function(){
+			imagesdb.remove({_id:myId});
+			console.log(myId);
+		});
 	}
 });
 
@@ -93,5 +98,8 @@ Template.editImage.events({
 				"desc": newDesc
 			}}
 		);
+	},
+	'input #editPath'(event, instance){
+		$(".placeHolder").attr("src",$("#editPath").val());
 	}
 });
