@@ -13,7 +13,6 @@
 		{{> addImage}}
 		{{> editImage}}
 		{{> myGallery}}
-		}
 	</div>
 </body>
 
@@ -28,6 +27,7 @@
 				<i class="fa fa-trash dcolor js-delete"></i>
 				<h2>{{title}}</h2>
 				<h3>{{desc}}</h3>
+				{{> rating value=ratings picId=_id}}
 			</div>
 		{{/each}}
 		<!-- ========================= -->
