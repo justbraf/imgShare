@@ -1,29 +1,43 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import 'meteor/jkuester:blaze-bs4'
-import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.css' // this is the default BS theme as example
-import popper from 'popper.js'
+import { Session } from 'meteor/session';
+import 'meteor/jkuester:blaze-bs4';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css'; // this is the default BS theme as example
+import popper from 'popper.js';
 global.Popper = popper // fixes some issues with Popper and Meteor
 
 import './main.html';
 import '../lib/collection.js';
 
-// Template.hello.onCreated(function helloOnCreated() {
-//   // counter starts at 0
-//   this.counter = new ReactiveVar(0);
-// increment the counter when button is clicked
-		// instance.counter.set(instance.counter.get() + 1);
-// });
+Session.set("imageLimit", 9);
+lastScrollTop = 0;
+$(window).scroll(function(event){
+	//check if we are near the bottom of the page
+	if ($(window).scrollTop() + $(window).height() > $(document).height() - 100){
+		//where are we on the page?
+		var scrollTop = $(this).scrollTop();
+		//test if we are going down
+		if (scrollTop > lastScrollTop){
+			//yes we scrolling down
+			Session.set("imageLimit",Session.get("imageLimit") + 3);
+		}//end of if (new scrollTop)
+		lastScrollTop = scrollTop;
+	}// end of if (height check)
+});
 
 Template.myGallery.helpers({
 	allImages(){
+		//get time 15 seconds ago
 		var prevTime = new Date().getTime() - 15000;
-		var results = imagesdb.find({createdOn: {$gte:prevTime}}).count();
-		if (results > 0)
-			return imagesdb.find({},{sort:{createdOn: -1, ratings: -1}});
-		else
-			return imagesdb.find({},{sort:{ratings: -1, createdOn: -1}});
+		//count how many records are younger than fifteen seconds
+		var results = imagesdb.find({createdOn: {$gte: prevTime}}).count();
+		if (results > 0){
+			return imagesdb.find({}, {sort:{createdOn: -1, ratings: -1}, limit: Session.get("imageLimit")});
+		}
+		else {
+			return imagesdb.find({}, {sort:{ratings: -1, createdOn: -1}, limit: Session.get("imageLimit")});
+		}
 	},
 });
 
@@ -89,7 +103,7 @@ Template.addImage.events({
 			"createdOn": new Date().getTime()
 		});
 		// imagesdb.insert({"title": theTitle, "path": thePath, "desc": theDesc});
-		console.log("saving...");
+		// console.log("saving...");
 		$("#addImageModal").modal("hide");
 		$("#imgTitle").val("");
 		$("#imgPath").val("");
