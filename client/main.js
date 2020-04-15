@@ -39,6 +39,14 @@ Template.myGallery.helpers({
 			return imagesdb.find({}, {sort:{ratings: -1, createdOn: -1}, limit: Session.get("imageLimit")});
 		}
 	},
+	userField(){//check to see if image has a saved user
+		if (!(this.createdBy == undefined)){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 });
 
 Template.myGallery.events({
@@ -69,15 +77,17 @@ Template.myGallery.events({
 		});
 	},
 	'click .rating'(event, instance) {
-		var myId = this.picId;
-		const value = $(event.target).val();
-		// console.log(myId+" : "+value);
-		imagesdb.update({_id: myId},
-			{$set:{
-				"ratings": value
-			}}
-		);
-	}
+		// if (Meteor.userId()){
+			var myId = this.picId;
+			const value = $(event.target).val();
+			// console.log(myId+" : "+value);
+			imagesdb.update({_id: myId},
+				{$set:{
+					"ratings": value
+				}}
+			);
+		}
+	// }
 });
 
 Template.addImage.events({
@@ -100,7 +110,8 @@ Template.addImage.events({
 			"title": theTitle,
 			"path": thePath,
 			"desc": theDesc,
-			"createdOn": new Date().getTime()
+			"createdOn": new Date().getTime(),
+			"createdBy": Meteor.users.findOne({_id:Meteor.userId()}).emails[0].address
 		});
 		// imagesdb.insert({"title": theTitle, "path": thePath, "desc": theDesc});
 		// console.log("saving...");
