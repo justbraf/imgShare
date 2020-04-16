@@ -2,9 +2,21 @@ body {
 	padding: 10px;
 	font-family: sans-serif;
 }
-
+.mybkgnd{
+	background: url('dawid-zawila-zb2vBaHYB2I-unsplash.jpg');
+	background-size: cover;
+}
+.mybkcol{
+	background: #ffffff44;/*rgba*/
+}
 .imgs{
 	width: 100%;
+	transition: .3s linear;
+	cursor: pointer;
+}
+
+.imgs:hover{
+	transform: scale(1.1);
 }
 
 .uniform{
@@ -27,6 +39,10 @@ body {
 	height: 250px;
 }
 
-#login-buttons a{
-	text-decoration: none;
+#login-dropdown-list{
+	list-style: none;
+}
+
+.rating > label{
+	cursor: pointer;
 }
