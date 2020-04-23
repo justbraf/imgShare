@@ -25,8 +25,13 @@ Template.myGallery.events({
 	'click .js-delete'(event, instance) {
 		// console.log("deleting...");
 		var myId = this._id;
-		$("#deleteId").val(myId);
-		$("#confirmModal").modal("show");
+		if ((this.createdById == undefined) || (this.createdById == Meteor.userId())){
+			$("#deleteId").val(myId);
+			$("#confirmModal").modal("show");
+		}
+		else {
+			alert("You don't have permission to delete that.");
+		}
 	},
 	'click .js-edit'(event, instance){
 		$("#editImageModal").modal("show");
@@ -45,7 +50,7 @@ Template.myGallery.events({
 		var myId = $("#deleteId").val();
 		$("#"+myId).fadeOut('slow',function(){
 			imagesdb.remove({_id:myId});
-			console.log(myId);
+			// console.log(myId);
 		});
 	},
 	'click .rating'(event, instance) {

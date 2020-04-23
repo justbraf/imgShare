@@ -35,8 +35,7 @@ body {
 }
 .placeHolder{
 	margin-bottom: 10px;
-	width: 350px;
-	height: 250px;
+	width: 100%;
 }
 
 #login-dropdown-list{
@@ -45,4 +44,15 @@ body {
 
 .rating > label{
 	cursor: pointer;
+}
+
+.col-4 > h3, h4, h5{
+	font-size: 1.3em;
+}
+
+.imgCrop{
+	max-width: 350px;
+	max-height: 250px;
+	margin: 0 auto;
+	overflow: hidden;
 }
