@@ -26,3 +26,5 @@ session
 accounts-password
 msavin:mongol
 chuikoff:accounts-ui-bootstrap-4
+ostrio:flow-router-extra
+kadira:blaze-layout
