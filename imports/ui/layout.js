@@ -15,6 +15,7 @@ import './editImage.html';
 import './navBar.html';
 import './banner.html';
 import './randomImg.html';
+import './error404.html';
 
 //api scripts
 import '../../lib/collection.js';
