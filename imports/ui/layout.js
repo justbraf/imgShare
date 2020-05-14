@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'; // this is the default BS theme as ex
 import popper from 'popper.js';
 global.Popper = popper // fixes some issues with Popper and Meteor
 
+
 //ui templates
 import './layout.html';
 import './myGallery.html';
@@ -16,6 +17,7 @@ import './navBar.html';
 import './banner.html';
 import './randomImg.html';
 import './error404.html';
+import './viewImage.html';
 
 //api scripts
 import '../../lib/collection.js';
@@ -26,3 +28,4 @@ import '../api/addImage.js';
 import '../api/editImage.js';
 import '../api/router.js';
 import '../api/randomImg.js';
+import '../api/viewImage.js';
