@@ -1,0 +1,21 @@
+<template name="viewImage">
+	<div class="row mt-3 justify-content-around">
+		{{#with viewImg}}
+			<div class="col-8">
+				<div>
+					<img class="imgs" src={{path}} alt="">
+				</div>
+			</div>
+			<div class="col-4">
+				<h3>{{title}}</h3>
+				<h4>{{desc}}</h4>
+				{{#if userField}}
+					<h5>by {{createdBy}}</h5>
+				{{/if}}
+				<a href="/gallery">
+				<i class="fa fa-arrow-left ecolor"></i></a>
+				{{> rating value=ratings disabled=true}}
+			</div>
+		{{/with}}
+	</div>
+</template>
