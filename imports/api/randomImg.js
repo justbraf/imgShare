@@ -1,17 +1,20 @@
 import { Random } from 'meteor/random';
 
-// Meteor.methods({
-// 	uniqueNumber(){
-// 		var n;
-// 		n = Math.floor(Random.fraction()*imagesdb.find().count());
-// 		consle.log("random: "+n);
-// 		return n;
-// 	}
-// });
+uniqueNumber = function(){
+	var n = Math.floor(Random.fraction()*imagesdb.find().count());
+	return n;
+}
 
 Template.randomImg.helpers({
 	randImg(){
-		return imagesdb.findOne();
-		// db.images.aggregate([{$sample: {size:1}}]);
+		return imagesdb.find().fetch()[uniqueNumber()];
+	},
+	userField(){//check to see if image has a saved user
+		if (!(this.createdBy == undefined)){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 });
