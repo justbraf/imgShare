@@ -2,33 +2,79 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 BlazeLayout.setRoot('.container');
 
-FlowRouter.route('/', {
-  name: 'index',
-  action(params, queryParams) {
-    BlazeLayout.render("pageLayout", {header: "banner", mainBody: "randomImg"});
-    console.log("home page");
-  }
+Accounts.onLogin(function() {
+	const redirect = Session.get("redirectAfterLogin");
+	if (redirect){
+		FlowRouter.go(redirect);
+	}
 });
 
-FlowRouter.route('/gallery', {
-  name: 'gallery',
-  action(params, queryParams) {
-    BlazeLayout.render("pageLayout", {header:"banner", mainBody: "myGallery"});
-    console.log("the gallery of pictures");
-  }
+Accounts.onLogout(function(){
+	if (FlowRouter._current.route.name != "login")
+		Session.set("redirectAfterLogin",FlowRouter._current.path);
+	FlowRouter.go("index");
 });
 
-FlowRouter.route('/gallery/:_id', {
-  name:'viewImg',
-  action(params){
-    BlazeLayout.render("pageLayout", {header:"banner", mainBody: "viewImage"});
-  }
+const normal = FlowRouter.group();
+
+const loggedIn = FlowRouter.group({
+	triggersEnter:[
+		function(context, redirect) {
+			if (!Meteor.userId()){
+				if (context.route.name != "login")
+					Session.set("redirectAfterLogin", context.path);
+				redirect("login");
+			}
+		}
+	]
+});
+
+normal.route('/', {
+	name: 'index',
+	action(params, queryParams) {
+		BlazeLayout.render("pageLayout", {header: "banner", mainBody: "randomImg"});
+	}
+});
+
+normal.route('/login', {
+	name: 'login',
+	action() {
+		BlazeLayout.render("pageLayout", {header: "banner", mainBody: "login"});
+	}
+});
+
+loggedIn.route('/logout', {
+	name: 'logout',
+	action() {
+		Meteor.logout(FlowRouter.go("login"));
+	}
+});
+
+loggedIn.route('/gallery', {
+	name: 'gallery',
+	action(params, queryParams) {
+		BlazeLayout.render("pageLayout", {header:"banner", mainBody: "myGallery"});
+	}
+});
+
+loggedIn.route('/gallery/:_id', {
+	name:'viewImg',
+	action(params){
+		BlazeLayout.render("pageLayout", {header:"banner", mainBody: "viewImage"});
+	}
+});
+
+normal.route('/about', {
+	name:'aboutUs',
+	action(){
+		BlazeLayout.render("pageLayout", {header:"banner", mainBody: "about"});
+	}
 });
 
 //catch-all
 FlowRouter.route('*', {
-  name: 'error404',
-  action(){
-    BlazeLayout.render("pageLayout", {mainBody: "error404"});
-  }
+	name: 'error404',
+	action(){
+		BlazeLayout.render("pageLayout", {mainBody: "error404"});
+	}
 });

@@ -17,6 +17,8 @@ import './banner.html';
 import './randomImg.html';
 import './error404.html';
 import './viewImage.html';
+import './about.html';
+import './login.html';
 
 //api scripts
 import '../../lib/collection.js';
