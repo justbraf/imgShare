@@ -7,6 +7,8 @@ Accounts.onLogin(function() {
 	if (redirect){
 		FlowRouter.go(redirect);
 	}
+	Meteor.logoutOtherClients();
+	Session.set("loggedIn", true);
 });
 
 Accounts.onLogout(function(){
