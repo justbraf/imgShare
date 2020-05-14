@@ -7,8 +7,18 @@ Accounts.onLogin(function(){
 	redirect = Session.get("redirectAfterLogin");
 	if (redirect){
 		if (redirect != "login")
+			Meteor.logoutOtherClients();
 			FlowRouter.go(redirect);
 	}
+});
+
+Accounts.onLogout(function(){
+	
+	Session.set("redirectAfterLogin", FlowRouter._current.path);
+	// if (redirect){
+		// if (redirect != "login")
+			FlowRouter.go("index");
+	// }
 });
 
 const normal = FlowRouter.group();
@@ -53,6 +63,14 @@ loggedIn.route('/gallery', {
 	action(params, queryParams) {
 		BlazeLayout.render("pageLayout", {header:"banner", mainBody: "myGallery"});
 		console.log("the gallery of pictures");
+	}
+});
+
+loggedIn.route('/view/:_id', {
+	name: 'viewImage',
+	action(params, queryParams) {
+		BlazeLayout.render("pageLayout", {header:"banner", mainBody: "viewImage"});
+		console.log("view indiviudal image");
 	}
 });
 
