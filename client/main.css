@@ -23,6 +23,9 @@ body {
 	height: 250px;
 	overflow: hidden;
 }
+.uniform2{
+	width: 100%;
+}
 .dcolor, .ecolor{
 	font-size: 2em;
 	cursor: pointer;

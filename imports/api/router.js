@@ -18,6 +18,13 @@ FlowRouter.route('/gallery', {
   }
 });
 
+FlowRouter.route('/gallery/:_id', {
+  name:'viewImg',
+  action(params){
+    BlazeLayout.render("pageLayout", {header:"banner", mainBody: "viewImage"});
+  }
+});
+
 //catch-all
 FlowRouter.route('*', {
   name: 'error404',

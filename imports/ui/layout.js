@@ -16,6 +16,7 @@ import './navBar.html';
 import './banner.html';
 import './randomImg.html';
 import './error404.html';
+import './viewImage.html';
 
 //api scripts
 import '../../lib/collection.js';
@@ -26,3 +27,4 @@ import '../api/addImage.js';
 import '../api/editImage.js';
 import '../api/router.js';
 import '../api/randomImg.js';
+import '../api/viewImage.js';

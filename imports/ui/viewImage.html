@@ -1,0 +1,19 @@
+<template name="viewImage">
+	<div class="row mt-3 justify-content-around">
+		{{#with viewImg}}
+			<div class="col-8 p-3">
+				<div class="uniform2">
+					<img class="imgs" src={{path}} alt="">
+				</div>
+			</div>
+			<div class="col-4 py-3">
+				<h3>{{title}}</h3>
+				<h4>{{desc}}</h4>
+				{{#if userField}}
+					<h5>by {{createdBy}}</h5>
+				{{/if}}
+				{{> rating value=ratings}}
+			</div>
+		{{/with}}
+	</div>
+</template>
