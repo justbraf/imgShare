@@ -56,3 +56,10 @@ body {
 	margin: 0 auto;
 	overflow: hidden;
 }
+#e404Pic{
+	width: 150px;
+	border-radius: 10%;
+}
+#e404Text{
+	color: black;
+}
